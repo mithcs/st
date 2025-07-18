@@ -96,44 +96,40 @@ unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-    /* 8 normal colors */
-    "#f582f7", /* rosewater */
-    "#ff5c8a", /* bright red for better contrast */
-    "#a6d3a1", /* green */
-    "#e0c080", /* darker yellow for better visibility */
-    "#89b4fa", /* blue */
-    "#cba6f7", /* mauve */
-    "#94e2d5", /* teal */
-    "#cdd6f4", /* base */
+    /* 8 normal colors (indices 0–7) */
+    "#0D0D0D", /* black: palette.black */
+    "#DD3E25", /* red: palette.red */
+    "#dedede", /* green: palette.light_gray (using as green isn't specified) */
+    "#CFCA0D", /* yellow: palette.vibrant_yellow */
+    "#73D0FF", /* blue: inherited from ayu_dark */
+    "#FF8732", /* magenta: palette.vibrant_orange */
+    "#95E6CB", /* cyan: using ayu's teal */
+    "#020202", /* white: background (swap roles in Ayu Evolve) */
 
-    /* 8 bright colors */
-    "#a6adc8", /* overlay2 */
-    "#ff9e6d", /* brighter maroon for better contrast */
-    "#afe9a1", /* green */
-    "#e0c080", /* darker yellow for better visibility */
-    "#89b4fa", /* blue */
-    "#cba6f7", /* purple */
-    "#74c7ec", /* sapphire */
-    "#ffffff", /* text (bright white) */
+    /* 8 bright colors (indices 8–15) */
+    "#505050", /* bright black (gray) */
+    "#FF3333", /* bright red (error highlight tones) */
+    "#BAE67E", /* bright green (inferred from ayu) */
+    "#FFA759", /* bright yellow (inferred) */
+    "#73D0FF", /* bright blue */
+    "#FF8732", /* bright magenta (vibrant_orange) */
+    "#95E6CB", /* bright cyan */
+    "#ffffff", /* bright white (text) */
 
     [255] = 0,
 
-    /* more colors can be added after 255 to use with DefaultXX */
-    "#1e1e2e", /* mantle */
-    "#181825", /* crust */
-    "#cdd6f4", /* default foreground colour (text) */
-    "#1e1e2e", /* default background colour (mantle) */
+    /* Extra slots for default colors */
+    "#020202", /* mantle/background */
+    "#0D0D0D", /* crust (darker background) */
+    "#dedede", /* default foreground */
+    "#020202", /* default background */
 };
 
-
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 258;
-unsigned int defaultbg = 259;
-unsigned int defaultcs = 258;
-static unsigned int defaultrcs = 257;
+/* Default colors (colorname index) */
+unsigned int defaultfg = 258;  /* #dedede (light gray) */
+unsigned int defaultbg = 259;  /* #020202 (background) */
+unsigned int defaultcs = 258;  /* cursor fg same as default text */
+static unsigned int defaultrcs = 257;  /* reverse cursor: crust */
 
 /*
  * Default shape of cursor
