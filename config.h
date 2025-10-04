@@ -94,79 +94,74 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* Terminal colors (16 first used in escape sequence) */
 typedef struct {
-	const char* const colors[258]; /* terminal colors */
+	const char* const colors[258]; /* terminal colors: 0-15, 256 = cursor, 257 = reverse cursor */
 	unsigned int fg;               /* foreground */
 	unsigned int bg;               /* background */
 	unsigned int cs;               /* cursor */
 	unsigned int rcs;              /* reverse cursor */
 } ColorScheme;
-/*
- * Terminal colors (16 first used in escape sequence,
- * 2 last for custom cursor color),
- * foreground, background, cursor, reverse cursor
- */
+
 static const ColorScheme schemes[] = {
 	// st (dark)
-	{{"black", "red3", "green3", "yellow3",
-	  "blue2", "magenta3", "cyan3", "gray90",
-	  "gray50", "red", "green", "yellow",
-	  "#5c5cff", "magenta", "cyan", "white",
-	  [256]="#cccccc", "#555555"}, 7, 0, 256, 257},
+	{{"#000000","#ff5555","#50fa7b","#f1fa8c",
+	  "#bd93f9","#ff79c6","#8be9fd","#bbbbbb",
+	  "#44475a","#ff6e6e","#69ff94","#ffffa5",
+	  "#d6acff","#ff92df","#a4ffff","#ffffff",
+	  [256]="#ffffff", "#bbbbbb"}, 7, 0, 256, 257},
 
-	// Alacritty (dark)
-	{{"#1d1f21", "#cc6666", "#b5bd68", "#f0c674",
-	  "#81a2be", "#b294bb", "#8abeb7", "#c5c8c6",
-	  "#666666", "#d54e53", "#b9ca4a", "#e7c547",
-	  "#7aa6da", "#c397d8", "#70c0b1", "#eaeaea",
-	  [256]="#cccccc", "#555555"}, 7, 0, 256, 257},
+	// rose-pine
+	{{"#191724","#eb6f92","#31748f","#f6c177",
+	  "#9ccfd8","#c4a7e7","#ebbcba","#e0def4",
+	  "#26233a","#ea9a97","#6e6a86","#f6c177",
+	  "#3e8fb0","#c4a7e7","#ebbcba","#e0def4",
+	  [256]="#e0def4","#191724"}, 7, 0, 256, 257},
 
-	// One Half dark
-	{{"#282c34", "#e06c75", "#98c379", "#e5c07b",
-	  "#61afef", "#c678dd", "#56b6c2", "#dcdfe4",
-	  "#282c34", "#e06c75", "#98c379", "#e5c07b",
-	  "#61afef", "#c678dd", "#56b6c2", "#dcdfe4",
-	  [256]="#cccccc", "#555555"}, 7, 0, 256, 257},
+	// ayu-dark
+	{{"#0f1419","#ff3333","#b8cc52","#e6c446",
+	  "#36a3d9","#f07070","#95e6cb","#c5c8c6",
+	  "#232a2d","#ff5151","#cfff6a","#fff778",
+	  "#369afe","#ffa2a2","#aaffee","#ffffff",
+	  [256]="#e6c446","#232a2d"}, 7, 0, 256, 257},
 
-	// One Half light
-	{{"#fafafa", "#e45649", "#50a14f", "#c18401",
-      "#0184bc", "#a626a4", "#0997b3", "#383a42",
-	  "#fafafa", "#e45649", "#50a14f", "#c18401",
-	  "#0184bc", "#a626a4", "#0997b3", "#383a42",
-	  [256]="#cccccc", "#555555"}, 7, 0, 256, 257},
+	// ayu-light
+	{{"#fafafa","#ff3333","#b8cc52","#e6c446",
+	  "#36a3d9","#f07070","#95e6cb","#5c6166",
+	  "#eaeaea","#ff5151","#cfff6a","#fff778",
+	  "#369afe","#ffa2a2","#aaffee","#232a2d",
+	  [256]="#232a2d","#fafafa"}, 7, 0, 256, 257},
 
-	// Solarized dark
-	{{"#073642", "#dc322f", "#859900", "#b58900",
-	  "#268bd2", "#d33682", "#2aa198", "#eee8d5",
-	  "#002b36", "#cb4b16", "#586e75", "#657b83",
-	  "#839496", "#6c71c4", "#93a1a1", "#fdf6e3",
-	  [256]="#93a1a1", "#fdf6e3"}, 12, 8, 256, 257},
+	// catppuccin-mocha
+	{{"#1e1e2e","#f38ba8","#a6e3a1","#f9e2af",
+	  "#89b4fa","#cba6f7","#94e2d5","#cdd6f4",
+	  "#45475a","#f38ba8","#a6e3a1","#f9e2af",
+	  "#89b4fa","#cba6f7","#94e2d5","#fafafa",
+	  [256]="#cdd6f4","#1e1e2e"}, 7, 0, 256, 257},
 
-	// Solarized light
-	{{"#eee8d5", "#dc322f", "#859900", "#b58900",
-	  "#268bd2", "#d33682", "#2aa198", "#073642",
-	  "#fdf6e3", "#cb4b16", "#93a1a1", "#839496",
-	  "#657b83", "#6c71c4", "#586e75", "#002b36",
-	  [256]="#586e75", "#002b36"}, 12, 8, 256, 257},
+	// catppuccin-latte
+	{{"#eff1f5","#d20f39","#40a02b","#df8e1d",
+	  "#1e66f5","#8839ef","#179299","#4c4f69",
+	  "#dc8a78","#dd7878","#8caaee","#e5e9f0",
+	  "#7c7f93","#d8ddff","#90b1fa","#dcdee3",
+	  [256]="#4c4f69","#eff1f5"}, 7, 0, 256, 257},
 
-	// Gruvbox dark
-	{{"#282828", "#cc241d", "#98971a", "#d79921",
-	  "#458588", "#b16286", "#689d6a", "#a89984",
-	  "#928374", "#fb4934", "#b8bb26", "#fabd2f",
-	  "#83a598", "#d3869b", "#8ec07c", "#ebdbb2",
-	  [256]="#ebdbb2", "#555555"}, 15, 0, 256, 257},
+	// solarized-dark
+	{{"#073642","#dc322f","#859900","#b58900",
+	  "#268bd2","#d33682","#2aa198","#eee8d5",
+	  "#002b36","#cb4b16","#586e75","#657b83",
+	  "#839496","#6c71c4","#93a1a1","#fdf6e3",
+	  [256]="#93a1a1","#fdf6e3"}, 12, 8, 256, 257},
 
-	// Gruvbox light
-	{{"#fbf1c7", "#cc241d", "#98971a", "#d79921",
-	  "#458588", "#b16286", "#689d6a", "#7c6f64",
-	  "#928374", "#9d0006", "#79740e", "#b57614",
-	  "#076678", "#8f3f71", "#427b58", "#3c3836",
-	  [256]="#3c3836", "#555555"}, 15, 0, 256, 257},
+	// solarized-light
+	{{"#eee8d5","#dc322f","#859900","#b58900",
+	  "#268bd2","#d33682","#2aa198","#073642",
+	  "#fdf6e3","#cb4b16","#93a1a1","#839496",
+	  "#657b83","#6c71c4","#586e75","#002b36",
+	  [256]="#586e75","#002b36"}, 12, 8, 256, 257},
 };
 
 static const char * const * colorname;
-int colorscheme = 3;
+int colorscheme = 1;
 
 /* Default colors (colorname index) */
 unsigned int defaultfg;
